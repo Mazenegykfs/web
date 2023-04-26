@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      border: 2px solid #87ceeb;
+      border-radius: 5px;
+      background-color: #f8f8f8;
+      color: #333;
+      font-size: 18px;
+    }
+    
+    button[type="submit"] {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #87ceeb;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    
+    #result {
+      font-size: 24px;
+      color: #ff0000;
+    }
+    
+    #attitude {
+      font-size: 24px;
+      color: #0000ff;
+    }
+    h1 {
+      font-size: 36px;
+    }
+  </style>
+<script>
+function analyze() {
+  var statement = document.getElementById("statement").value;
+  var factWords = ["is", "are", "was", "were", "did", "do", "has", "have", "had", "will", "would", "can", "could", "may", "might", "must", "should"];
+  var opinionWords = ["believe", "think", "feel", "suppose", "imagine", "guess", "assume", "presume", "suspect", "hope", "like", "love", "hate", "prefer", "admire", "respect", "appreciate", "enjoy", "fear", "doubt", "seem"];
+  
+  var attitude;
+  
+  for (var i=0; i<factWords.length; i++) {
+    if (statement.indexOf(factWords[i]) != -1) {
+      document.getElementById("result").innerHTML = "Fact";
+      attitude = "Neutral";
+    }
+  }
+  
+  for (var i=0; i<opinionWords.length; i++) {
+    if (statement.indexOf(opinionWords[i]) != -1) {
+      document.getElementById("result").innerHTML = "Opinion";
+      if (statement.indexOf("not") != -1 || statement.indexOf("n't") != -1) {
+        attitude = "Negative";  
+      } else {
+        attitude = "Positive";
+      }
+    } 
+  }
+  
+  document.getElementById("attitude").innerHTML = attitude;
+  
+  return false;
+}
+</script>
+</head>
+<body>
+
+<h1>statement Analyzer</h1>
+
+<form onsubmit="analyze(); return false;">
+  Enter a statement: <input type="text" id="statement"><br>
+<button type="submit">Analyze</button> 
+</form>
+
+<div id="result"></div>
+<div id="attitude"></div>
+
+</body>
+</html>
